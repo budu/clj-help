@@ -23,8 +23,13 @@
   [& [namespace]]
   (ns-utils/print-dir (or namespace *ns*)))
 
+(defn- docs
+  "Prints documentation for the public vars in the given namespace, or *ns* if none."
+  [& [namespace]]
+  (ns-utils/print-docs (or namespace *ns*)))
+
 (def #^{:private true} queries
-  ['cp 'dir])
+  ['cp 'dir 'docs])
 
 (defn- print-usage []
   (println "Usage: (help <query> ...)")
