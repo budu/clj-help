@@ -5,37 +5,48 @@
   (:require [clojure.contrib.ns-utils :as ns-utils])
   (:use clojure.contrib.classpath))
 
+;;;; Utilities
+
 (defn- print-files [files]
   (doseq [f files]
     (println (.getAbsolutePath f))))
 
-(defn- cp
+(defmacro #^{:private true} defquery
+  [name usage args body]
+  `(def ~(with-meta name {:private true :doc usage ::query true})
+     (fn [& ~args] ~body)))
+
+;;;; Queries
+
+(defquery cp
   "Prints all files in the classpath, accept 'jars' or 'dirs' as optional argument."
-  [& [only]]
+  [only]
   (print-files
    (condp = only
      'jars (map #(java.io.File. (.getName %)) (classpath-jarfiles))
      'dirs (classpath-directories)
      (classpath))))
 
-(defn- dir
+(defquery dir
   "Prints a sorted directory of public vars in the given namespace, or *ns* if none."
-  [& [namespace]]
+  [namespace]
   (ns-utils/print-dir (or namespace *ns*)))
 
-(defn- docs
+(defquery docs
   "Prints documentation for the public vars in the given namespace, or *ns* if none."
-  [& [namespace]]
+  [namespace]
   (ns-utils/print-docs (or namespace *ns*)))
 
+;;;; Help macro
+
 (def #^{:private true} queries
-  ['cp 'dir 'docs])
+  (filter (comp ::query meta)
+          (map val (ns-interns 'clj-help))))
 
 (defn- print-usage []
   (println "Usage: (help <query> ...)")
   (doseq [q queries]
-    (let [f (ns-resolve 'clj-help q)
-          m (meta f)]
+    (let [m (meta q)]
       (println " " (:name m) "-" (:doc m)))))
 
 (defn help*
