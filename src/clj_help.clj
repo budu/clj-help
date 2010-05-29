@@ -2,7 +2,8 @@
 (ns clj-help
   "Simple help macro to regroup contrib functions useful for interactive
   development."
-  (:require [clojure.contrib.ns-utils :as ns-utils])
+  (:require [clojure.contrib.ns-utils :as ns-utils]
+            [clojure.contrib.repl-utils :as repl-utils])
   (:use clojure.contrib.classpath))
 
 ;;;; Utilities
@@ -36,6 +37,14 @@
   "Prints documentation for the public vars in the given namespace, or *ns* if none."
   [namespace]
   (ns-utils/print-docs (or namespace *ns*)))
+
+(defquery info
+  "Analyzes the given s-expr and prints the class of the value it returns."
+  [expr]
+  (when expr
+    (let [{:keys [class primitive?]}
+          (repl-utils/expression-info expr)]
+      (println class))))
 
 ;;;; Help macro
 
