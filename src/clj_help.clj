@@ -4,7 +4,8 @@
   development."
   (:require [clojure.contrib.ns-utils :as ns-utils]
             [clojure.contrib.repl-utils :as repl-utils])
-  (:use clojure.contrib.classpath))
+  (:use clojure.contrib.classpath
+        clojure.contrib.pprint))
 
 ;;;; Utilities
 
@@ -57,6 +58,11 @@
   "Prints a string of the source code for the given symbol"
   [sym]
   (when sym (repl-utils/source sym)))
+
+(defquery macro
+  "Pretty prints the expansion of the given form."
+  [form]
+  (when form (pprint (macroexpand form))))
 
 ;;;; Help macro
 
