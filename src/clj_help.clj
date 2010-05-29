@@ -46,6 +46,13 @@
           (repl-utils/expression-info expr)]
       (println class))))
 
+(defquery show
+  "Prints all instance members of the given class with an optional int, string or regex selector."
+  [klass selector]
+  (when klass
+    (apply repl-utils/show
+           (conj [(resolve klass)] selector))))
+
 ;;;; Help macro
 
 (def #^{:private true} queries
