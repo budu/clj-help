@@ -57,7 +57,7 @@
 (defquery source
   "Prints a string of the source code for the given symbol"
   [sym]
-  (when sym (repl-utils/source sym)))
+  (when sym (println (repl-utils/get-source sym))))
 
 (defquery macro
   "Pretty prints the expansion of the given form."
