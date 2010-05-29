@@ -8,21 +8,30 @@
   (doseq [f files]
     (println (.getAbsolutePath f))))
 
-(defn- cp [& [only]]
+(defn- cp
+  "Print all files in the classpath, accept 'jars' or 'dirs' as optional argument."
+  [& [only]]
   (print-files
    (condp = only
      'jars (map #(java.io.File. (.getName %)) (classpath-jarfiles))
      'dirs (classpath-directories)
      (classpath))))
 
+(def #^{:private true} queries
+  ['cp])
+
 (defn- print-usage []
-  (println "Usage: ..."))
+  (println "Usage: (help <query> ...)")
+  (doseq [q queries]
+    (let [f (ns-resolve 'clj-help q)
+          m (meta f)]
+      (println " " (:name m) "-" (:doc m)))))
 
 (defn help*
   "Driver function for the help macro."
   ([] (print-usage))
   ([query & args]
-     (apply (resolve query) args)))
+     (apply (ns-resolve 'clj-help query) args)))
 
 (defmacro help
   "Regroup contrib functions useful for interactive development. Call
