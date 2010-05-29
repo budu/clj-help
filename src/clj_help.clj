@@ -53,6 +53,11 @@
     (apply repl-utils/show
            (conj [(resolve klass)] selector))))
 
+(defquery source
+  "Prints a string of the source code for the given symbol"
+  [sym]
+  (when sym (repl-utils/source sym)))
+
 ;;;; Help macro
 
 (def #^{:private true} queries
