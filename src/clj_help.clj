@@ -2,6 +2,7 @@
 (ns clj-help
   "Simple help macro to regroup contrib functions useful for interactive
   development."
+  (:require [clojure.contrib.ns-utils :as ns-utils])
   (:use clojure.contrib.classpath))
 
 (defn- print-files [files]
@@ -9,7 +10,7 @@
     (println (.getAbsolutePath f))))
 
 (defn- cp
-  "Print all files in the classpath, accept 'jars' or 'dirs' as optional argument."
+  "Prints all files in the classpath, accept 'jars' or 'dirs' as optional argument."
   [& [only]]
   (print-files
    (condp = only
@@ -17,8 +18,13 @@
      'dirs (classpath-directories)
      (classpath))))
 
+(defn- dir
+  "Prints a sorted directory of public vars in the given namespace, or *ns* if none."
+  [& [namespace]]
+  (ns-utils/print-dir (or namespace *ns*)))
+
 (def #^{:private true} queries
-  ['cp])
+  ['cp 'dir])
 
 (defn- print-usage []
   (println "Usage: (help <query> ...)")
