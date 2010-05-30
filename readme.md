@@ -9,7 +9,7 @@ To get basic usage call the `help` macro without any argument.
 
 ## Installation
 
-Simply drop clj-help.jar in your classpath, which much also include
+Simply drop clj-help.jar in your classpath, which must also include
 clojure-contrib.
 
 ## License
