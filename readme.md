@@ -12,6 +12,20 @@ To get basic usage call the `help` macro without any argument.
 Simply drop clj-help.jar in your classpath, which must also include
 clojure-contrib.
 
+You can also get clj-help through Clojars.
+
+using leiningen:
+
+    [clj-help "0.1.0-SNAPSHOT"]
+
+using maven:
+
+    <dependency>
+      <groupId>clj-help</groupId>
+      <artifactId>clj-help</artifactId>
+      <version>0.1.0-SNAPSHOT</version>
+    </dependency>
+
 ## License
 
 The MIT License
