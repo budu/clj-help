@@ -67,7 +67,7 @@
 (defquery pp
   "Evaluates the given form and pretty prints its result."
   [form]
-  (when form (pprint form)))
+  (when form (pprint (eval form))))
 
 ;;;; Help macro
 
