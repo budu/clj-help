@@ -5,7 +5,7 @@
   (:require [clojure.contrib.ns-utils :as ns-utils]
             [clojure.contrib.repl-utils :as repl-utils])
   (:use clojure.contrib.classpath
-        clojure.contrib.pprint))
+        [clojure.contrib.pprint :only [pprint]]))
 
 ;;;; Utilities
 
@@ -60,9 +60,14 @@
   (when sym (println (repl-utils/get-source sym))))
 
 (defquery macro
-  "Pretty prints the expansion of the given form."
+  "Pretty prints the macro expansion of the given form."
   [form]
   (when form (pprint (macroexpand form))))
+
+(defquery pp
+  "Evaluates the given form and pretty prints its result."
+  [form]
+  (when form (pprint form)))
 
 ;;;; Help macro
 
