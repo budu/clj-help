@@ -1,4 +1,4 @@
-(defproject clj-help "0.1.0-SNAPSHOT"
+(defproject clj-help "0.1.1"
   :description "Simple help macro to regroup contrib functions useful
                for interactive development."
   :dependencies [[org.clojure/clojure "1.1.0"]

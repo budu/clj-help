@@ -3,9 +3,9 @@
   "Simple help macro to regroup contrib functions useful for interactive
   development."
   (:require [clojure.contrib.ns-utils :as ns-utils]
-            [clojure.contrib.repl-utils :as repl-utils])
-  (:use clojure.contrib.classpath
-        [clojure.contrib.pprint :only [pprint]]))
+            [clojure.contrib.repl-utils :as repl-utils]
+            [clojure.contrib.pprint :as pprint])
+  (:use clojure.contrib.classpath))
 
 ;;;; Utilities
 
@@ -62,12 +62,12 @@
 (defquery macro
   "Pretty prints the macro expansion of the given form."
   [form]
-  (when form (pprint (macroexpand form))))
+  (when form (pprint/pprint (macroexpand form))))
 
 (defquery pp
   "Evaluates the given form and pretty prints its result."
   [form]
-  (when form (pprint (eval form))))
+  (when form (pprint/pprint (eval form))))
 
 ;;;; Help macro
 
