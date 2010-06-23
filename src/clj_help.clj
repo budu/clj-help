@@ -14,9 +14,9 @@
     (println (.getAbsolutePath f))))
 
 (defmacro #^{:private true} defquery
-  [name usage args body]
+  [name usage args & body]
   `(def ~(with-meta name {:private true :doc usage ::query true})
-     (fn [& ~args] ~body)))
+     (fn [& ~args] ~@body)))
 
 ;;;; Queries
 
