@@ -95,7 +95,9 @@
   "Driver function for the help macro."
   ([] (print-usage))
   ([query & args]
-     (apply (ns-resolve 'clj-help query) args)))
+     (if-let [query (ns-resolve 'clj-help query)]
+       (apply query args)
+       (print-usage))))
 
 (defmacro help
   "Regroup contrib functions useful for interactive development. Call
