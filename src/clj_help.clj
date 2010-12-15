@@ -79,6 +79,19 @@
   [form]
   (when form (pprint/pprint (eval form))))
 
+(defquery clean
+  "Remove a namespace (and used vars) from the given namespace, or *ns* if none."
+  [ns-to-reload from-ns]
+  (let [sym #(symbol (.name %))
+        orig-ns (sym *ns*)
+        from-ns (or from-ns orig-ns)
+        vars (ns-utils/ns-vars ns-to-reload)]
+    (in-ns from-ns)
+    (remove-ns ns-to-reload)
+    (doseq [v vars]
+      (ns-unmap from-ns v))
+    (in-ns orig-ns)))
+
 ;;;; Help macro
 
 (def ^{:private true} queries
