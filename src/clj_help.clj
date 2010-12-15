@@ -23,7 +23,7 @@
   (doseq [f files]
     (println (.getAbsolutePath f))))
 
-(defmacro #^{:private true} defquery
+(defmacro ^{:private true} defquery
   [name usage args & body]
   `(def ~(with-meta name {:private true :doc usage ::query true})
      (fn [& ~args] ~@body)))
@@ -81,7 +81,7 @@
 
 ;;;; Help macro
 
-(def #^{:private true} queries
+(def ^{:private true} queries
   (filter (comp ::query meta)
           (map val (ns-interns 'clj-help))))
 
