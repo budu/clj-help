@@ -18,14 +18,6 @@ using leiningen:
 
     [clj-help "0.2.0"]
 
-using maven:
-
-    <dependency>
-      <groupId>clj-help</groupId>
-      <artifactId>clj-help</artifactId>
-      <version>0.1.0-SNAPSHOT</version>
-    </dependency>
-
 ## License
 
 The MIT License
