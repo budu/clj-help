@@ -16,7 +16,7 @@ You can also get clj-help through Clojars.
 
 using leiningen:
 
-    [clj-help "0.2.0-SNAPSHOT"]
+    [clj-help "0.2.0"]
 
 using maven:
 
