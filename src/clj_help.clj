@@ -2,10 +2,10 @@
 (ns clj-help
   "Simple help macro to regroup contrib functions useful for interactive
   development."
-  (:require [clojure.contrib.ns-utils :as ns-utils]
-            [clojure.contrib.repl-utils :as repl-utils]
-            [clojure.contrib.pprint :as pprint])
-  (:use clojure.contrib.classpath))
+  (:require (clojure.contrib [ns-utils :as ns-utils]
+                             [repl-utils :as repl-utils]
+                             [pprint :as pprint]
+                             [classpath :as cp])))
 
 ;;;; Utilities
 
@@ -25,9 +25,9 @@
   [only]
   (print-files
    (condp = only
-     'jars (map #(java.io.File. (.getName %)) (classpath-jarfiles))
-     'dirs (classpath-directories)
-     (classpath))))
+     'jars (map #(java.io.File. (.getName %)) (cp/classpath-jarfiles))
+     'dirs (cp/classpath-directories)
+     (cp/classpath))))
 
 (defquery dir
   "Prints a sorted directory of public vars in the given namespace, or *ns* if none."
